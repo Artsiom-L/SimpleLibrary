@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta title="base-url" id="baseUrl" th:content="@{/}"/>
+    <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"/>-->
+    <link rel="stylesheet" th:href="@{/css/main.css}" href="../static/css/main.css" type="text/css"/>
+    <!--<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" href="../static/css/bootstrap.min.css" type="text/css"/>-->
+    <link rel="stylesheet" href="https://bootswatch.com/3/paper/bootstrap.min.css"/>
+    <script
+            src="https://code.jquery.com/jquery-3.2.1.min.js"
+            integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+            crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+            crossorigin="anonymous"></script>
+</head>
+<body>
+
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <a class="navbar-brand" th:href="@{/}">Library</a>
+        </div>
+        <div id="navbar" class="collapse navbar-collapse">
+            <th:block sec:authorize="isAuthenticated()">
+                <ul class="nav navbar-nav navbar-left">
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                           aria-expanded="false" th:text="#{layout.add}">Add<span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a th:href="@{/author-search}" th:text="#{layout.add.book}">Add a book</a></li>
+                            <li><a th:href="@{/author/add}" th:text="#{layout.add.author}">Add an author</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                           aria-expanded="false" th:text="#{layout.language}">Change language<span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a th:href="@{?lang=en}">English</a></li>
+                            <li><a th:href="@{?lang=ru}">Русский</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                           aria-expanded="false" th:text="#{layout.sort}">Sort by<span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a th:href="@{?sort=title}" th:text="#{layout.sort.name}">Name</a></li>
+                            <li><a th:href="@{?sort=modified}" th:text="#{layout.sort.date}">Date modified</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right ">
+                    <li><a th:href="@{/logout}" th:text="#{layout.logout}">Logout</a></li>
+                </ul>
+            </th:block>
+            <th:block sec:authorize="!isAuthenticated()">
+                <ul class="nav navbar-nav navbar-left">
+                    <li><a th:href="@{/login}">Login</a></li>
+                    <li><a th:href="@{/registration}">Registration</a></li>
+                </ul>
+            </th:block>
+        </div>
+    </div>
+</nav>
+<div class="container" layout:fragment="content">
+</div>
+</body>
+</html>

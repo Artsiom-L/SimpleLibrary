@@ -1,0 +1,121 @@
+body {
+    padding-top: 100px;
+}
+
+.pagination-centered {
+    text-align: center;
+}
+
+.btn-circle {
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    padding: 6px 0;
+    font-size: 12px;
+    line-height: 1.42;
+    border-radius: 15px;
+}
+
+.search {
+    background-color: #006eff;
+    border-radius: 15px;
+}
+
+.my-border {
+    border: none #9acfea;
+    border-right-style: solid;
+    border-left-style: solid;
+    border-radius: 30px/90px;
+}
+
+.my-form {
+    padding: 20px;
+}
+
+.amazing-block {
+    position: relative;
+    width: auto;
+    padding: 1em;
+    margin: 2em 10px 4em;
+    background: #fff;
+    -webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+    -moz-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+    -webkit-box-shadow: 0 15px 10px -10px rgba(0, 0, 0, 0.5), 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+    -moz-box-shadow: 0 15px 10px -10px rgba(0, 0, 0, 0.5), 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+    box-shadow: 0 15px 10px -10px rgba(0, 0, 0, 0.5), 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+}
+
+.amazing-block:before,
+.amazing-block:after {
+    content: "";
+    position: absolute;
+    z-index: -2;
+}
+
+.amazing-block > img {
+    width: 90%;
+    margin-bottom: 5px;
+}
+
+.right {
+    position: relative;
+    float: right;
+    top: -40px;
+}
+
+.autocomplete-suggestions {
+    border: 1px solid #999;
+    background: #FFF;
+    overflow: auto;
+}
+
+.autocomplete-suggestion {
+    padding: 5px 5px;
+    white-space: nowrap;
+    overflow: hidden;
+    font-size: 22px
+}
+
+.autocomplete-selected {
+    background: #F0F0F0;
+}
+
+.autocomplete-suggestions strong {
+    font-weight: bold;
+    color: #3399FF;
+}
+
+.amazing-link {
+    border-bottom: 2px solid #5be;
+    color: #555;
+    background: linear-gradient(180deg, transparent 65%, #5bf 65%) no-repeat 0% 100%;
+    background-size: 100% 0%;
+}
+
+.amazing-link:hover {
+    background-size: 100% 100%;
+}
+
+.img-center {
+    text-align: center;
+}
+
+.img-size {
+    width: 90%;
+}
+
+.addiction {
+    position: fixed;
+    bottom: 20%;
+    right: -3%;
+    opacity: 0.7;
+    transform: rotate(90deg);
+}
+
+.out-image {
+    width: 20%;
+    height: 20%;
+    position: absolute;
+    left: 75%;
+}

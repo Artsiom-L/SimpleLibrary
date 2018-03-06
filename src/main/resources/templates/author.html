@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout">
+<head>
+    <title>Add author</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="page-header">
+        <h1 th:text="@{|${author.firstName} ${author.lastName}|}">Information</h1>
+        <p class="lead" th:text="${author.nickname}">Auteur</p>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div class="out-image">
+                        <img class="thumbnail img-responsive" th:src="@{|/author/${author.id}/image|}"/>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-3">First name</div>
+                        <div class="col-sm-9">
+                            <p th:text="${author.firstName}">firstName</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-3">Last name</div>
+                        <div class="col-sm-9">
+                            <p th:utext="${author.lastName}">lastName</p>
+                        </div>
+                    </div>
+                    <div class="row parent-float">
+                        <div class="col-sm-3">Email</div>
+                        <div class="col-sm-3">
+                            <p th:utext="${author.email}">email</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-3">Nickname</div>
+                        <div class="col-sm-3">
+                            <p th:text="${author.nickname}">nickname</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-3">Homepage</div>
+                        <div class="col-sm-9">
+                            <p th:text="${author.homepage}">homepage</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-3">BirthDate</div>
+                        <div class="col-sm-9">
+                            <p th:text="${author.birthDate}">birthDate</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-3">Books:</div>
+                        <div class="col-sm-6">
+                            <th:block th:each="book: ${author.books}">
+                                <blockquote><a th:href="@{/book/{id}(id=${book.id})}"
+                                               th:text="@{|${book.title} - ${book.description}|}">...</a></blockquote>
+                            </th:block>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-6">
+            <a href="/author-search" class="btn btn-primary btn-lg active pull-left" role="button">Back to search</a>
+        </div>
+        <div class="col-sm-6">
+
+            <button type="button" class="btn btn-success btn-lg pull-right"
+                    th:onclick="'window.location.href = \'' + @{|/book/add/${author.id}|} + '\''">
+
+                <!--th:onclick="'window.location.href = \'' + @{|/comment/${comment.id}/remove|} + '\''" -->
+                <i class="glyphicon glyphicon-plus"></i> Add a book
+            </button>
+
+        </div>
+    </div>
+</div>
+</body>
+</html>

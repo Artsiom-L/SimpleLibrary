@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout">
+<head>
+    <title>Hello Spring Boot!</title>
+    <meta http-equiv="Content-Type" summary="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+    <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet"/>
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="page-header">
+        <h1>Error - 5XX</h1>
+    </div>
+    <div class="row">
+        <div class="col-sm-8">
+            <h1 th:text="${title}" class="page-header">Error page</h1>
+            <p th:text="${lead}" class="lead"></p>
+            <p th:utext="${message}"></p>
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <p th:text="${exception}">Exception message </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout">
+<head>
+    <title>Add author</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="page-header">
+        <h1>Search by authors</h1>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <form class="searchform" action="#" th:action="@{/author-search}" th:object="${searchTerm}" method="GET">
+                <div id="custom-search-input">
+                    <div class="input-group col-md-12">
+                        <input type="text" class="form-control" id="searchterm" name="search" th:value="${search}"
+                               placeholder="Author's name"/>
+                        <span class="input-group-btn">
+                            <button class="btn btn-info" type="submit">
+                                <span>Search</span>
+                                <!--class="glyphicon glyphicon-search"-->
+                            </button>
+                        </span>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table table-striped table-hover">
+                <thead>
+                <tr>
+                    <th>First name</th>
+                    <th>Last name</th>
+                    <th>Nickname</th>
+                    <th>Link</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:if="${catalog.empty}">
+                    <td colspan="4">Sorry, search result is empty</td>
+                </tr>
+                <tr th:each="person : ${catalog}">
+                    <td th:text="${person.firstName}">firstName</td>
+                    <td th:text="${person.lastName}">lastName</td>
+                    <td th:text="${person.nickname}">nickname</td>
+                    <td>
+                        <a th:href="@{/author/{id}(id=${person.id})}" th:text="${'Go'}">...</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout">
+<head>
+    <title>Index</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="row">
+        <div class="col-md-8">
+            <h4 class="addiction" th:text="|Page views: ${counter}|"></h4>
+            <th:block th:each="book: ${books}">
+                <div class="amazing-block">
+                    <h6 th:text="|#{added} ${book.user.username} #{on} ${book.modified}|"></h6>
+                    <h4><a th:href="@{/book/{id}(id=${book.id})}" th:text="${book.title}">...</a></h4>
+
+                    <h4><a th:href="@{/author/{id}(id=${book.author.id})}"
+                           th:text="|${book.author.firstName} ${book.author.lastName}|">...</a></h4>
+                    <p class="img-center thumbnail"><img class="img-size" th:src="@{|/book/${book.id}/image|}"/></p>
+                    <p th:text="${book.description}"></p>
+                    <br/>
+                    <div class="btn-group" role="group">
+                        <button type="button" class="btn btn-danger btn-sm"
+                                th:onclick="'window.location.href = \'' + @{|/book/${book.id}/remove|} + '\''"
+                                th:if="${#authentication.getName() == book.user.username}"
+                                th:id="|delete-${book.id}|"
+                                th:text="#{delete.book}">
+                            Delete book
+                        </button>
+                    </div>
+                </div>
+            </th:block>
+        </div>
+        <div class="col-md-4 my-border">
+            <form th:action="@{/search}" method="post" th:object="${filter}" class="my-form">
+                <div class="form-group">
+                    <label for="title" th:text="#{sorting.title}">Book title</label>
+                    <input class="form-control" th:field="*{title}"/>
+                </div>
+                <div class="form-group">
+                    <label for="description" th:text="#{sorting.description}">Book description</label>
+                    <input class="form-control" th:field="*{description}"/>
+                </div>
+                <div class="form-group">
+                    <label for="minYear" th:text="#{sorting.minyear}">Min year</label>
+                    <input class="form-control" th:field="*{minYear}"/>
+                </div>
+                <div class="form-group">
+                    <label for="maxYear" th:text="#{sorting.maxyear}">Max year</label>
+                    <input class="form-control" th:field="*{maxYear}"/>
+                </div>
+                <div class="form-group">
+                    <label for="startDate" th:text="#{sorting.startdate}">Start date</label>
+                    <input type="date" class="form-control" th:field="*{startDate}"/>
+                </div>
+                <div class="form-group">
+                    <label for="endDate" th:text="#{sorting.enddate}">End date</label>
+                    <input type="date" class="form-control" th:field="*{endDate}"/>
+                </div>
+                <div class="form-group">
+                    <label for="sortBy" th:text="#{sorting.sortby}">Sort by</label>
+                    <select class="form-control" th:field="*{sortBy}">
+                        <option value="year" th:text="#{sorting.sortby.year}">year</option>
+                        <option value="title" th:text="#{sorting.sortby.title}">title</option>
+                        <option value="date_added" th:text="#{sorting.sortby.date}">date</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <input type="checkbox" id="only-image" th:field="*{onlyWithImages}"/>
+                    <label th:text="#{sorting.images}" for="only-image"></label>
+
+                </div>
+                <div class="form-group">
+
+                    <input type="checkbox" id="strict" th:field="*{strict}"/>
+                    <label th:text="#{sorting.strict}" for="strict"></label>
+                </div>
+                <button type="submit" class="btn btn-default" th:text="#{sorting.submit}">Submit</button>
+            </form>
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group col-md-1">
+            <select class="form-control pagination" id="pageSizeSelect">
+                <option th:each="pageSize : ${pageSizes}" th:text="${pageSize}" th:value="${pageSize}"
+                        th:selected="${pageSize} == ${selectedPageSize}"></option>
+            </select>
+        </div>
+        <div th:if="${totalPages != 1}" class="form-group col-md-11 pagination-centered">
+            <ul class="pagination">
+                <li th:class="${books.number == 0} ? disabled">
+                    <a class="pageLink" th:href="@{/(pageSize=${selectedPageSize}, page=1)}">&laquo;</a>
+                </li>
+                <li th:class="${books.number == 0} ? disabled">
+                    <a class="pageLink" th:href="@{/(pageSize=${selectedPageSize}, page=${books.number})}">&larr;</a>
+                </li>
+                <li th:class="${books.number == (page - 1)} ? 'active pointer-disabled'"
+                    th:each="page : ${#numbers.sequence(pager.startPage, pager.endPage)}">
+                    <a class="pageLink" th:href="@{/(pageSize=${selectedPageSize}, page=${page})}"
+                       th:text="${page}"></a>
+                </li>
+                <li th:class="${books.number + 1 == totalPages} ? disabled">
+                    <a class="pageLink"
+                       th:href="@{/(pageSize=${selectedPageSize}, page=${books.number + 2})}">&rarr;</a>
+                </li>
+                <li th:class="${books.number + 1 == totalPages} ? disabled">
+                    <a class="pageLink" th:href="@{/(pageSize=${selectedPageSize}, page=${totalPages})}">&raquo;</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+</body>
+</html>

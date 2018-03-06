@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout">
+<head>
+    <title>Add book</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <form th:action="@{|/book/add/${id}|}" method="post" th:object="${book}" enctype="multipart/form-data">
+        <div class="form-group">
+            <label for="title">Name</label>
+            <input class="form-control" id="title" placeholder="Book title" th:field="*{title}"/>
+            <p th:if="${#fields.hasErrors('title')}" th:errors="*{title}">Name Error</p>
+        </div>
+        <div class="form-group">
+            <label for="description">Description</label>
+            <input class="form-control" id="description" placeholder="Item description" th:field="*{description}"/>
+            <p th:if="${#fields.hasErrors('description')}" th:errors="*{description}">Name Error</p>
+        </div>
+        <div class="form-group">
+            <label for="year">Year</label>
+            <input class="form-control" id="year" placeholder="Year" type="number" th:field="*{year}"/>
+            <p th:if="${#fields.hasErrors('year')}" th:errors="*{year}">Name Error</p>
+        </div>
+        <div class="form-group">
+            <label for="countPages">Count pages</label>
+            <input class="form-control" id="countPages" placeholder="Count pages" type="number"
+                   th:field="*{countPages}"/>
+            <p th:if="${#fields.hasErrors('countPages')}" th:errors="*{countPages}">Name Error</p>
+        </div>
+        <div class="form-group">
+            <label for="language">language</label>
+            <input class="form-control" id="language" placeholder="language" type="text" th:field="*{language}"/>
+            <p th:if="${#fields.hasErrors('language')}" th:errors="*{language}">Name Error</p>
+        </div>
+        <div class="form-group">
+            <label for="image">Image</label>
+            <input type="file" id="image" th:field="*{image}"/>
+        </div>
+        <div class="form-group">
+            <label for="file">File</label>
+            <input type="file" id="file" th:field="*{file}"/>
+        </div>
+        <button type="submit" class="btn btn-default">Add book</button>
+    </form>
+</div>
+
+</body>
+</html>

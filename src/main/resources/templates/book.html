@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout">
+<head>
+    <title th:text="${book.title}">...</title>
+    <script th:src="@{/js/main.js}"></script>
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="page-header">
+        <h1 th:text="${book.title}">Information</h1>
+        <a th:href="@{/author/{id}(id=${book.author.id})}"
+           th:text="@{|${book.author.firstName} ${book.author.lastName}|}">...</a>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div class="out-image">
+                        <img class="thumbnail img-responsive"
+                             th:src="@{|/book/${book.id}/image|}"/>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-3">countPages</div>
+                        <div class="col-sm-9">
+                            <p th:text="${book.countPages}">countPages</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-3">language</div>
+                        <div class="col-sm-6">
+                            <p th:utext="${book.language}">language</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-3">year</div>
+                        <div class="col-sm-9">
+                            <p th:text="${book.year}">year</p>
+                        </div>
+                    </div>
+                    <div class="row"></div>
+                    <div class="row">
+                        <div class="col-sm-3">description</div>
+                        <div class="col-sm-6">
+                            <p th:utext="${book.description}">description</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-6">
+            <a href="/" class="btn btn-primary btn-lg active pull-left" role="button">Back to main page</a>
+        </div>
+        <div class="col-sm-6">
+            <!--<a th:href="'/download/' + ${book.id}">Download the book</a>-->
+            <button type="button" class="btn btn-success btn-lg pull-right" th:if="${book.fileSize} != 0"
+                    th:onclick="'window.location.href = \'' + @{|/download/${book.id}|} + '\''">
+                <i class="glyphicon glyphicon-floppy-disk"></i> Download the book
+            </button>
+
+        </div>
+    </div>
+    <br/>
+    <div class="row">
+        <div class="btn-group" role="group">
+            <button type="button" class="btn btn-primary btn-sm" th:onclick="|leaveComment(${book.id})|"
+                    th:id="|comment-link-${book.id}|">
+                Add comment
+            </button>
+            <button type="button" class="btn btn-danger btn-sm"
+                    th:onclick="'window.location.href = \'' + @{|/book/${book.id}/remove|} + '\''"
+                    th:if="${#authentication.getName() == book.user.username}"
+                    th:id="|delete-${book.id}|">
+                Delete book
+            </button>
+        </div>
+        <div class="hidden" th:id="|comment-${book.id}|">
+            <textarea placeholder="Text" class="form-control" rows="3"></textarea>
+            <p>
+                <button type="button" class="btn btn-success btn-sm" th:onclick="|sendComment(${book.id})|">
+                    Add
+                </button>
+                <button type="button" class="btn btn-warning btn-sm"
+                        th:onclick="|cancelComment(${book.id})|">Cancel
+                </button>
+            </p>
+        </div>
+        <br/>
+
+        <th:block th:if="${!book.comments.isEmpty()}">
+            <div class="panel panel-default">
+                <div class="panel-heading"><p><strong>Comments:</strong></p></div>
+                <div class="panel-body">
+                    <th:block th:each="comment: ${book.comments}">
+                        <div class="well well-sm"><p th:text="${comment.text}"></p>
+                            <button type="button" class="btn btn-warning right" aria-label="Delete"
+                                    th:onclick=" ' + @{|/comment/${comment.id}/remove|} + '\''"
+                                    th:if="${#authentication.getName() == comment.user.username}">
+                                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                            </button>
+                        </div>
+                        <h6 th:text="|Added by ${comment.user.username}|"></h6>
+                    </th:block>
+                </div>
+            </div>
+        </th:block>
+    </div>
+</div>
+</body>
+</html>
