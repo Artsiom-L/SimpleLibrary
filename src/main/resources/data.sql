@@ -1,6 +1,3 @@
-
-CREATE TABLE IF NOT EXISTS `counters` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `title` VARCHAR(45) NOT NULL,
-  `value` INT NOT NULL DEFAULT 0,
-  PRIMARY KEY (`id`));
+INSERT INTO users (username, password) VALUES ('King', '12345');
+INSERT INTO authors (email, gender, homepage, nickname, last_name, first_name, middle_name, birth_date, user_id)
+VALUES ('ivanov_alex@mail.ru', '1', 'lolo.ru', 'Gnom', 'Ivanov', 'Alex', 'Nikolayevich', curdate(), '1');
