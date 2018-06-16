@@ -44,8 +44,7 @@ public class BookServiceImpl implements BookService {
     private String filesPath;
     private AuthorRepository authorRepository;
     private static final String DEFAULT_IMAGE =
-            "http://maxpixel.freegreatpicture.com/static/photo/640/" +
-                    "Book-Relax-Read-Rest-Bank-Lilac-Old-Book-Pages-759873.jpg";
+            "https://upload.wikimedia.org/wikipedia/commons/thumb/2/26/Book3.svg/495px-Book3.svg.png";
 
     public BookServiceImpl(BookRepository bookRepository,
                            UserRepository userRepository,
@@ -219,7 +218,7 @@ public class BookServiceImpl implements BookService {
             sql += "modified < '" + new java.sql.Timestamp(filter.getEndDate().getTime()) + "'";
         }
         sql += " ORDER BY " + filter.getSortBy();
-        List<Book> books = jdbcTemplate.query(sql, new BeanPropertyRowMapper(Book.class));
+        List<Book> books = jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Book.class));
         if (filter.isOnlyWithImages()) {
             return books
                     .stream()

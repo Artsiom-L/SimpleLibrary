@@ -31,7 +31,10 @@ public class StartupListener implements ApplicationListener<ApplicationReadyEven
 
     @Override
     public void onApplicationEvent(ApplicationReadyEvent event) {
-        User user = userRepository.findOne(1);
+        User user = new User();
+        user.setUsername("King");
+        user.setPassword("12345");
+        userRepository.save(user);
         Author author = new Author();
         author.setId(1);
         author.setEmail("ivanov_alex@mail.ru");

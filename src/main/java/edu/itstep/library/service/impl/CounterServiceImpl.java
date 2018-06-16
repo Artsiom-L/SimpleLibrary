@@ -22,7 +22,7 @@ public class CounterServiceImpl implements CounterService {
     @PostConstruct
     public void setUp() {
         //1 check if counter exists
-        Long value = jdbcTemplate.query("SELECT value FROM counters WHERE name = 'index'", resultSet -> {
+        Long value = jdbcTemplate.query("SELECT value FROM counters WHERE title = 'index'", resultSet -> {
             if (resultSet.next()) {
                 return resultSet.getLong(1);
             }
@@ -30,7 +30,7 @@ public class CounterServiceImpl implements CounterService {
         });
         if (value == null) {
             //not exists
-            jdbcTemplate.execute("INSERT INTO counters(name) VALUES('index')");
+            jdbcTemplate.execute("INSERT INTO counters(title) VALUES('index')");
             value = 0L;
         }
         indexPageCounter = new AtomicLong(value);
@@ -46,7 +46,7 @@ public class CounterServiceImpl implements CounterService {
     public void save() {
         if (valueChanged.get()) {
             System.out.println("Saving to DB");
-            jdbcTemplate.update("UPDATE counters SET value = ? WHERE name = 'index'", indexPageCounter.get());
+            jdbcTemplate.update("UPDATE counters SET value = ? WHERE title = 'index'", indexPageCounter.get());
             valueChanged.set(false);
         }
     }
