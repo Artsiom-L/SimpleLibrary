@@ -3,6 +3,7 @@ package edu.itstep.library.service.impl;
 import edu.itstep.library.entity.User;
 import edu.itstep.library.repository.UserRepository;
 import edu.itstep.library.service.SecurityService;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -16,7 +17,9 @@ public class SecurityServiceImpl implements SecurityService {
     private AuthenticationManager authenticationManager;
     private UserDetailsService userDetailsService;
 
-    public SecurityServiceImpl(UserRepository userRepository, AuthenticationManager authenticationManager, UserDetailsService userDetailsService) {
+    public SecurityServiceImpl(UserRepository userRepository,
+                               AuthenticationManager authenticationManager,
+                               @Qualifier("userDetailsServiceImpl") UserDetailsService userDetailsService) {
         this.userRepository = userRepository;
         this.authenticationManager = authenticationManager;
         this.userDetailsService = userDetailsService;
